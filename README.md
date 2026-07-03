@@ -2,6 +2,12 @@
 
 在 Noctalia v5 状态栏显示中国农历、节气、节假日和调休信息。支持自定义日期事件（生日、纪念日等），点击 bar widget 可弹出完整月历面板，也可添加到桌面作为桌面小组件。
 
+## 效果展示
+
+| 状态栏 Bar Widget | 桌面组件 Desktop Widget |
+| --- | --- |
+| ![bar widget](bar.png) | ![desktop widget](desktop-widget.png) |
+
 ## 功能
 
 - **状态栏显示**：公历 + 农历日期，格式可自定义。
