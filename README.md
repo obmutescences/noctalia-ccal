@@ -171,6 +171,10 @@ flowchart LR
     BAR -->|点击| PANEL
 ```
 
+
+## 致谢
+
+本插件的农历逻辑参考了 [dms-plugin-ccal](https://github.com/xxyangyoulin/dms-plugin-ccal)，感谢原作者的贡献。
 ## 许可
 
 MIT
