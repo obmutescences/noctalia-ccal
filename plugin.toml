@@ -1,0 +1,87 @@
+id = "noctalia/ccal"
+name = "中国农历"
+version = "1.0.0"
+min_noctalia = "5.0.0"
+author = "zerone"
+license = "MIT"
+tags = ["calendar", "lunar", "chinese", "holiday"]
+icon = "calendar"
+description = "在 Noctalia 状态栏显示中国农历、节气和中国节假日调休信息。需要系统安装 ccal。"
+
+[[setting]]
+key = "refresh_interval"
+type = "int"
+label = "刷新间隔（秒）"
+description = "后台服务检查 ccal 数据和节假日数据的间隔。"
+default = 60
+min = 15
+max = 3600
+
+[[setting]]
+key = "fetch_holidays"
+type = "bool"
+label = "获取中国节假日调休"
+description = "从 holiday-cn 拉取节假日和调休数据，用于悬浮提示。"
+default = true
+
+[[setting]]
+key = "events"
+type = "string_list"
+label = "自定义事件"
+description = "格式：G 月-日 说明 或 L 月-日 说明。每行一个。如 G 01-01 元旦、L 05-05 端午节。L 前加 L 表示闰月（极少用）。"
+default = []
+
+[[widget]]
+id = "calendar"
+entry = "calendar.luau"
+
+  [[widget.setting]]
+  key = "date_format"
+  type = "string"
+  label = "日期格式"
+  description = "状态栏显示格式。d/M/yyyy 是公历，LL/LLL/LLLL 是农历。"
+  default = "ddd MM月dd日 LL"
+
+[[service]]
+id = "ccal_service"
+entry = "ccal_service.luau"
+
+[[desktop_widget]]
+id = "calendar_desktop"
+entry = "desktop_widget.luau"
+
+  [[desktop_widget.setting]]
+  key = "show_solar_term"
+  type = "bool"
+  label = "显示节气"
+  description = "在日期下方显示当日节气。"
+  default = true
+
+  [[desktop_widget.setting]]
+  key = "highlight_holidays"
+  type = "bool"
+  label = "高亮节假日"
+  description = "用不同颜色标记节假日和调休。"
+  default = true
+
+[[panel]]
+id = "calendar_panel"
+entry = "panel.luau"
+width = 560
+height = 580
+placement = "attached"
+position = "auto"
+
+  [[panel.setting]]
+  key = "show_solar_term"
+  type = "bool"
+  label = "显示节气"
+  description = "在日期下方显示当日节气。"
+  default = true
+
+  [[panel.setting]]
+  key = "highlight_holidays"
+  type = "bool"
+  label = "高亮节假日"
+  description = "用不同颜色标记节假日和调休。"
+  default = true
