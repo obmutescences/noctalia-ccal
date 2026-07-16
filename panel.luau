@@ -4,8 +4,8 @@
 -- 每日显示公历、农历、节气、节假日标记。
 -- 复用 ccal_service.luau 发布的状态数据。
 
-local showSolarTerm = panel.getConfig("show_solar_term")
-local highlightHolidays = panel.getConfig("highlight_holidays")
+local showSolarTerm = noctalia.getConfig("show_solar_term")
+local highlightHolidays = noctalia.getConfig("highlight_holidays")
 
 local ccalAvailable = noctalia.state.get("ccalAvailable")
 local lunarDataCache = noctalia.state.get("lunarDataCache") or {}

@@ -3,7 +3,7 @@
 -- 只负责展示：读取 ccal_service.luau 发布的状态，格式化今日日期，
 -- 点击时切换弹出面板并请求刷新。
 
-local dateFormat = barWidget.getConfig("date_format")
+local dateFormat = noctalia.getConfig("date_format")
 local refreshInterval = tonumber(noctalia.getConfig("refresh_interval")) or 60
 
 local ccalAvailable = noctalia.state.get("ccalAvailable")

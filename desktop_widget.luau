@@ -3,8 +3,8 @@
 -- 显示月历视图：星期栏 + 当月日期网格，每日显示公历、农历、节气、节假日标记。
 -- 复用 ccal_service.luau 发布的状态数据，无需额外请求。
 
-local showSolarTerm = desktopWidget.getConfig("show_solar_term")
-local highlightHolidays = desktopWidget.getConfig("highlight_holidays")
+local showSolarTerm = noctalia.getConfig("show_solar_term")
+local highlightHolidays = noctalia.getConfig("highlight_holidays")
 
 local ccalAvailable = noctalia.state.get("ccalAvailable")
 local lunarDataCache = noctalia.state.get("lunarDataCache") or {}
