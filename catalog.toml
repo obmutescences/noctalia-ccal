@@ -6,5 +6,6 @@ author = "zerone"
 license = "MIT"
 icon = "calendar"
 description = "在 Noctalia 状态栏显示中国农历、节气和中国节假日调休信息。"
-min_noctalia = "5.0.0"
+plugin_api = 3
 tags = ["calendar", "lunar", "chinese", "holiday"]
+dependencies = ["ccal"]

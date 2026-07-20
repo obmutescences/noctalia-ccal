@@ -1,9 +1,10 @@
 id = "noctalia/ccal"
 name = "中国农历"
 version = "1.0.0"
-min_noctalia = "5.0.0"
+plugin_api = 3
 author = "zerone"
 license = "MIT"
+dependencies = ["ccal"]
 tags = ["calendar", "lunar", "chinese", "holiday"]
 icon = "calendar"
 description = "在 Noctalia 状态栏显示中国农历、节气和中国节假日调休信息。需要系统安装 ccal。"
