@@ -100,6 +100,18 @@ local function monthKey(year, month)
 	return `{year}-{pad2(month)}`
 end
 
+-- 把 ccal 原始月头 "丙午年七月小13日始" 格式化为 "农历丙午年七月小"
+local function formatLunarMonthHeader(header)
+	if type(header) ~= "string" then
+		return ""
+	end
+	local base = header:match("^(.-)%d+日始$")
+	if not base or base == "" then
+		return header
+	end
+	return "农历" .. base
+end
+
 local function today()
 	return os.date("*t")
 end
@@ -149,7 +161,7 @@ local function buildWeekdayRow()
 				ui.label({
 					text = weekday,
 					fontSize = 14,
-					weight = "semibold",
+					fontWeight = "semibold",
 					color = "on_surface_variant",
 					align = "center",
 				}),
@@ -176,14 +188,13 @@ local function buildDayCell(year, month, day, isToday)
 
 	local dayColor = "on_surface"
 	local lunarColor = "on_surface_variant"
-	local bgColor = nil
-	local borderRadius = 8
+	local fill = nil
 	local showHolidayBadge = false
 
 	if isToday then
-		bgColor = "surface_variant"
-		dayColor = "#00C853"
-		lunarColor = "#00C853"
+		fill = "primary/0.15"
+		dayColor = "primary"
+		lunarColor = "primary"
 	elseif hasEvents then
 		dayColor = "error"
 		lunarColor = "error"
@@ -201,8 +212,8 @@ local function buildDayCell(year, month, day, isToday)
 	local content = {
 		ui.label({
 			text = gregorianText,
-			fontSize = 18,
-			weight = isToday and "bold" or "medium",
+			fontSize = isToday and 22 or 18,
+			fontWeight = isToday and "bold" or "medium",
 			color = dayColor,
 			align = "center",
 		}),
@@ -227,7 +238,7 @@ local function buildDayCell(year, month, day, isToday)
 			ui.label({
 				text = "休",
 				fontSize = 10,
-				weight = "bold",
+				fontWeight = "bold",
 				color = "#00C853",
 				align = "center",
 			})
@@ -240,8 +251,8 @@ local function buildDayCell(year, month, day, isToday)
 			ui.label({
 				text = solarTerm,
 				fontSize = 10,
-				weight = "medium",
-				color = isToday and "#00C853" or (hasEvents and "error" or "tertiary"),
+				fontWeight = "medium",
+				color = "secondary",
 				align = "center",
 			})
 		)
@@ -253,8 +264,8 @@ local function buildDayCell(year, month, day, isToday)
 			ui.label({
 				text = desc,
 				fontSize = 10,
-				weight = "medium",
-				color = "error",
+				fontWeight = "medium",
+				color = "secondary",
 				align = "center",
 			})
 		)
@@ -265,8 +276,8 @@ local function buildDayCell(year, month, day, isToday)
 		align = "center",
 		justify = "center",
 		padding = 8,
-		bgColor = bgColor,
-		borderRadius = borderRadius,
+		fill = fill,
+		radius = 8,
 		width = 70,
 		minHeight = 70,
 	}, content)
@@ -323,41 +334,27 @@ end
 
 local function buildHeader(year, month)
 	local date = today()
-	local monthNames = {
-		"一月",
-		"二月",
-		"三月",
-		"四月",
-		"五月",
-		"六月",
-		"七月",
-		"八月",
-		"九月",
-		"十月",
-		"十一月",
-		"十二月",
-	}
 
-	-- 显示当日完整日期：2026年6月17日 星期二
+	-- 显示当日完整日期：2026年8月4日 星期二
 	local fullDateText = string.format("%d年%d月%d日 星期%s", date.year, date.month, date.day, WEEKDAYS[date.wday])
 
 	local cache = lunarDataCache[monthKey(year, month)]
 	local lunarHeader = ""
 	if type(cache) == "table" and type(cache.monthInfo) == "table" and cache.monthInfo.header then
-		lunarHeader = cache.monthInfo.header
+		lunarHeader = formatLunarMonthHeader(cache.monthInfo.header)
 	end
 
 	return ui.column({ gap = 6, align = "center" }, {
 		ui.label({
 			text = fullDateText,
 			fontSize = 18,
-			weight = "bold",
-			color = "on_surface",
+			fontWeight = "bold",
+			color = "primary",
 		}),
 		ui.label({
 			text = lunarHeader,
 			fontSize = 13,
-			color = "on_surface_variant",
+			color = "secondary",
 		}),
 	})
 end
@@ -386,8 +383,6 @@ local function render()
 	desktopWidget.render(ui.column({
 		gap = 16,
 		padding = 20,
-		bgColor = "surface",
-		borderRadius = 16,
 	}, {
 		buildHeader(year, month),
 		buildWeekdayRow(),
