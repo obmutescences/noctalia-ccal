@@ -202,7 +202,9 @@ local function buildDayCell(year, month, day, isToday)
 
 	local dayColor = "on_surface"
 	local lunarColor = "on_surface_variant"
-	local fill = nil
+	-- 显式给每个格子一个填充值（非今天为透明）：reconciler 对缺失的 fill
+	-- 不会清除旧值，fill = nil 会导致旧高亮背景残留。
+	local fill = "primary/0"
 	local showHolidayBadge = false
 
 	if isToday then
