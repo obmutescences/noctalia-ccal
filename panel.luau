@@ -181,7 +181,7 @@ local function buildWeekdayRow()
 					fontSize = 14,
 					fontWeight = "semibold",
 					color = "on_surface_variant",
-					align = "center",
+					textAlign = "center",
 				}),
 			})
 		)
@@ -231,7 +231,7 @@ local function buildDayCell(year, month, day, isToday)
 			fontSize = isToday and 22 or 18,
 			fontWeight = isToday and "bold" or "medium",
 			color = dayColor,
-			align = "center",
+			textAlign = "center",
 		}),
 	}
 
@@ -242,7 +242,7 @@ local function buildDayCell(year, month, day, isToday)
 				text = lunarText,
 				fontSize = 11,
 				color = lunarColor,
-				align = "center",
+				textAlign = "center",
 			})
 		)
 	end
@@ -255,7 +255,7 @@ local function buildDayCell(year, month, day, isToday)
 				fontSize = 10,
 				fontWeight = "bold",
 				color = "#00C853",
-				align = "center",
+				textAlign = "center",
 			})
 		)
 	end
@@ -268,7 +268,7 @@ local function buildDayCell(year, month, day, isToday)
 				fontSize = 10,
 				fontWeight = "medium",
 				color = "secondary",
-				align = "center",
+				textAlign = "center",
 			})
 		)
 	end
@@ -281,7 +281,7 @@ local function buildDayCell(year, month, day, isToday)
 				fontSize = 10,
 				fontWeight = "medium",
 				color = "secondary",
-				align = "center",
+				textAlign = "center",
 			})
 		)
 	end
@@ -380,13 +380,13 @@ local function buildHeader(year, month)
 				fontSize = 18,
 				fontWeight = "bold",
 				color = "primary",
-				align = "center",
+				textAlign = "center",
 			}),
 			ui.label({
 				text = subtitle,
 				fontSize = 13,
 				color = "secondary",
-				align = "center",
+				textAlign = "center",
 			}),
 		}),
 		ui.button({

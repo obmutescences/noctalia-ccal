@@ -12,8 +12,8 @@ description = "在 Noctalia 状态栏显示中国农历、节气和中国节假�
 [[setting]]
 key = "refresh_interval"
 type = "int"
-label_key = "刷新间隔（秒）"
-description_key = "后台服务检查 ccal 数据和节假日数据的间隔。"
+label_key = "settings.refresh_interval.label"
+description_key = "settings.refresh_interval.description"
 default = 60
 min = 15
 max = 3600
@@ -21,15 +21,15 @@ max = 3600
 [[setting]]
 key = "fetch_holidays"
 type = "bool"
-label_key = "获取中国节假日调休"
-description_key = "从 holiday-cn 拉取节假日和调休数据，用于悬浮提示。"
+label_key = "settings.fetch_holidays.label"
+description_key = "settings.fetch_holidays.description"
 default = true
 
 [[setting]]
 key = "events"
 type = "string_list"
-label_key = "自定义事件"
-description_key = "格式：G 月-日 说明 或 L 月-日 说明。每行一个。如 G 01-01 元旦、L 05-05 端午节。L 前加 L 表示闰月（极少用）。"
+label_key = "settings.events.label"
+description_key = "settings.events.description"
 default = []
 
 [[widget]]
@@ -39,8 +39,8 @@ entry = "calendar.luau"
   [[widget.setting]]
   key = "date_format"
   type = "string"
-  label_key = "日期格式"
-  description_key = "状态栏显示格式。d/M/yyyy 是公历，LL/LLL/LLLL 是农历。"
+  label_key = "settings.date_format.label"
+  description_key = "settings.date_format.description"
   default = "ddd MM月dd日 LL"
 
 [[service]]
@@ -54,15 +54,15 @@ entry = "desktop_widget.luau"
   [[desktop_widget.setting]]
   key = "show_solar_term"
   type = "bool"
-  label_key = "显示节气"
-  description_key = "在日期下方显示当日节气。"
+  label_key = "settings.show_solar_term.label"
+  description_key = "settings.show_solar_term.description"
   default = true
 
   [[desktop_widget.setting]]
   key = "highlight_holidays"
   type = "bool"
-  label_key = "高亮节假日"
-  description_key = "用不同颜色标记节假日和调休。"
+  label_key = "settings.highlight_holidays.label"
+  description_key = "settings.highlight_holidays.description"
   default = true
 
 [[panel]]
@@ -76,13 +76,13 @@ position = "auto"
   [[panel.setting]]
   key = "show_solar_term"
   type = "bool"
-  label_key = "显示节气"
-  description_key = "在日期下方显示当日节气。"
+  label_key = "settings.show_solar_term.label"
+  description_key = "settings.show_solar_term.description"
   default = true
 
   [[panel.setting]]
   key = "highlight_holidays"
   type = "bool"
-  label_key = "高亮节假日"
-  description_key = "用不同颜色标记节假日和调休。"
+  label_key = "settings.highlight_holidays.label"
+  description_key = "settings.highlight_holidays.description"
   default = true

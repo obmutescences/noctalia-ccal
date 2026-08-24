@@ -1,0 +1,14 @@
+{
+  "settings.refresh_interval.label": "刷新间隔（秒）",
+  "settings.refresh_interval.description": "后台服务检查 ccal 数据和节假日数据的间隔。",
+  "settings.fetch_holidays.label": "获取中国节假日调休",
+  "settings.fetch_holidays.description": "从 holiday-cn 拉取节假日和调休数据，用于悬浮提示。",
+  "settings.events.label": "自定义事件",
+  "settings.events.description": "格式：G 月-日 说明 或 L 月-日 说明。每行一个。如 G 01-01 元旦、L 05-05 端午节。L 前加 L 表示闰月（极少用）。",
+  "settings.date_format.label": "日期格式",
+  "settings.date_format.description": "状态栏显示格式。d/M/yyyy 是公历，LL/LLL/LLLL 是农历。",
+  "settings.show_solar_term.label": "显示节气",
+  "settings.show_solar_term.description": "在日期下方显示当日节气。",
+  "settings.highlight_holidays.label": "高亮节假日",
+  "settings.highlight_holidays.description": "用不同颜色标记节假日和调休。"
+}

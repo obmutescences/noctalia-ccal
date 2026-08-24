@@ -163,7 +163,7 @@ local function buildWeekdayRow()
 					fontSize = 14,
 					fontWeight = "semibold",
 					color = "on_surface_variant",
-					align = "center",
+					textAlign = "center",
 				}),
 			})
 		)
@@ -220,14 +220,14 @@ local function buildDayCell(year, month, day, isToday)
 			fontSize = isToday and 22 or 18,
 			fontWeight = isToday and "bold" or "medium",
 			color = dayColor,
-			align = "center",
+			textAlign = "center",
 		}),
 		-- 农历槽位：无农历数据时为空串
 		ui.label({
 			text = lunarText,
 			fontSize = 11,
 			color = lunarColor,
-			align = "center",
+			textAlign = "center",
 		}),
 		-- 节假日"休"字标记槽位：非休日为空串，颜色保持固定亮绿色
 		ui.label({
@@ -235,7 +235,7 @@ local function buildDayCell(year, month, day, isToday)
 			fontSize = 10,
 			fontWeight = "bold",
 			color = "#00C853",
-			align = "center",
+			textAlign = "center",
 		}),
 		-- 节气槽位：无节气或关闭显示时为空串
 		ui.label({
@@ -243,7 +243,7 @@ local function buildDayCell(year, month, day, isToday)
 			fontSize = 10,
 			fontWeight = "medium",
 			color = "secondary",
-			align = "center",
+			textAlign = "center",
 		}),
 		-- 自定义事件槽位：无事件时为空串，多条事件合并为单个槽位
 		ui.label({
@@ -251,7 +251,7 @@ local function buildDayCell(year, month, day, isToday)
 			fontSize = 10,
 			fontWeight = "medium",
 			color = "secondary",
-			align = "center",
+			textAlign = "center",
 		}),
 	}
 
