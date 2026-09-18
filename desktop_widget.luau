@@ -191,7 +191,7 @@ local function buildDayCell(year, month, day, isToday)
 	-- 显式给每个格子一个填充值（非今天为透明）：reconciler 对缺失的 fill
 	-- 不会清除旧值，fill = nil 会导致昨天的高亮背景残留。
 	local fill = "primary/0"
-	local showHolidayBadge = false
+	local holidayBadge = ""
 
 	if isToday then
 		fill = "primary/0.15"
@@ -202,16 +202,17 @@ local function buildDayCell(year, month, day, isToday)
 		lunarColor = "error"
 	elseif highlightHolidays and type(holiday) == "table" then
 		if holiday.isHoliday then
-			showHolidayBadge = true
+			holidayBadge = "休"
 			dayColor = "error"
 			lunarColor = "error"
 		elseif holiday.isWorkday then
+			holidayBadge = "补班"
 			dayColor = "tertiary"
 			lunarColor = "tertiary"
 		end
 	end
 
-	-- 固定 label 槽位，数量与顺序恒定：日期/农历/休/节气/事件。
+	-- 固定 label 槽位，数量与顺序恒定：日期/农历/休补班/节气/事件。
 	-- 不存在的内容用空字符串占位，保证每次 render 子节点数一致，
 	-- 否则 reconcile 按位置复用旧节点时无法清理残留样式。
 	local content = {
@@ -229,12 +230,12 @@ local function buildDayCell(year, month, day, isToday)
 			color = lunarColor,
 			textAlign = "center",
 		}),
-		-- 节假日"休"字标记槽位：非休日为空串，颜色保持固定亮绿色
+		-- 节假日徽标槽位：休日显示"休"，调休上班显示"补班"，其余为空串
 		ui.label({
-			text = showHolidayBadge and "休" or "",
+			text = holidayBadge,
 			fontSize = 10,
 			fontWeight = "bold",
-			color = "#00C853",
+			color = holidayBadge == "休" and "#00C853" or "tertiary",
 			textAlign = "center",
 		}),
 		-- 节气槽位：无节气或关闭显示时为空串

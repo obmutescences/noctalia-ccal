@@ -205,7 +205,7 @@ local function buildDayCell(year, month, day, isToday)
 	-- 显式给每个格子一个填充值（非今天为透明）：reconciler 对缺失的 fill
 	-- 不会清除旧值，fill = nil 会导致旧高亮背景残留。
 	local fill = "primary/0"
-	local showHolidayBadge = false
+	local holidayBadge = ""
 
 	if isToday then
 		fill = "primary/0.15"
@@ -216,15 +216,19 @@ local function buildDayCell(year, month, day, isToday)
 		lunarColor = "error"
 	elseif highlightHolidays and type(holiday) == "table" then
 		if holiday.isHoliday then
-			showHolidayBadge = true
+			holidayBadge = "休"
 			dayColor = "error"
 			lunarColor = "error"
 		elseif holiday.isWorkday then
+			holidayBadge = "补班"
 			dayColor = "tertiary"
 			lunarColor = "tertiary"
 		end
 	end
 
+	-- 固定 label 槽位，数量与顺序恒定：日期/农历/休补班/节气/事件。
+	-- 不存在的内容用空字符串占位，保证每次 render 子节点数一致，
+	-- 否则 reconcile 按位置复用旧节点时无法清理残留样式。
 	local content = {
 		ui.label({
 			text = gregorianText,
@@ -233,58 +237,38 @@ local function buildDayCell(year, month, day, isToday)
 			color = dayColor,
 			textAlign = "center",
 		}),
+		-- 农历槽位：无农历数据时为空串
+		ui.label({
+			text = lunarText,
+			fontSize = 11,
+			color = lunarColor,
+			textAlign = "center",
+		}),
+		-- 节假日徽标槽位：休日显示"休"，调休上班显示"补班"，其余为空串
+		ui.label({
+			text = holidayBadge,
+			fontSize = 10,
+			fontWeight = "bold",
+			color = holidayBadge == "休" and "#00C853" or "tertiary",
+			textAlign = "center",
+		}),
+		-- 节气槽位：无节气或关闭显示时为空串
+		ui.label({
+			text = showSolarTerm and solarTerm or "",
+			fontSize = 10,
+			fontWeight = "medium",
+			color = "secondary",
+			textAlign = "center",
+		}),
+		-- 自定义事件槽位：无事件时为空串，多条事件合并为单个槽位
+		ui.label({
+			text = #eventDescs > 0 and table.concat(eventDescs, " ") or "",
+			fontSize = 10,
+			fontWeight = "medium",
+			color = "secondary",
+			textAlign = "center",
+		}),
 	}
-
-	if lunarText ~= "" then
-		table.insert(
-			content,
-			ui.label({
-				text = lunarText,
-				fontSize = 11,
-				color = lunarColor,
-				textAlign = "center",
-			})
-		)
-	end
-
-	if showHolidayBadge then
-		table.insert(
-			content,
-			ui.label({
-				text = "休",
-				fontSize = 10,
-				fontWeight = "bold",
-				color = "#00C853",
-				textAlign = "center",
-			})
-		)
-	end
-
-	if showSolarTerm and solarTerm ~= "" then
-		table.insert(
-			content,
-			ui.label({
-				text = solarTerm,
-				fontSize = 10,
-				fontWeight = "medium",
-				color = "secondary",
-				textAlign = "center",
-			})
-		)
-	end
-
-	for _, desc in ipairs(eventDescs) do
-		table.insert(
-			content,
-			ui.label({
-				text = desc,
-				fontSize = 10,
-				fontWeight = "medium",
-				color = "secondary",
-				textAlign = "center",
-			})
-		)
-	end
 
 	-- 悬浮时在标题下方显示该日完整农历；用 key 区分是哪一天
 	local cellProps = {
